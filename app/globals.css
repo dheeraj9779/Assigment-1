@@ -24,3 +24,42 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+/* .myanim {
+  animation: slideshow 1.8s ease-in-out 2s infinite;
+}
+
+@keyframes slideshow {
+  0% {
+    transform: translateX(-50px);
+  }
+  50% {
+    transform: translateX(180px);
+  }
+
+  100% {
+    transform: translateX(350px);
+  }
+} */
+
+.myanim {
+  animation: carMove 2s ease-in-out infinite;
+}
+
+@keyframes carMove {
+  0% {
+    transform: translateX(-80px);
+  }
+  50% {
+    transform: translateX(210px);
+  }
+  100% {
+    transform: translateX(420px);
+  }
+}
+
+
+
+
+

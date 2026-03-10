@@ -1,65 +1,93 @@
-import Image from "next/image";
+
+"use client"
+
+import Image from "next/image"
+import Link from "next/link";
+import { useState } from "react"
+
+const images = [
+  "/images/Frame 9.png",
+  "/images/Frame 12.png",
+  "/images/Frame 13.png",
+  "/images/Frame 14.png",
+  "/images/Frame 15.png",
+  "/images/Frame 16.png"
+];
+
+
 
 export default function Home() {
+  const [hovered, setHovered] = useState<number | null>(0)
+
+
+  const getFlex = (index: number) => {
+    if (hovered === null) return 1
+
+    const distance = Math.abs(index - hovered)
+
+    if (distance === 0) return 6
+    if (distance === 1) return 4
+    if (distance === 2) return 2.5
+    if (distance === 3) return 1.8
+    return 1
+  }
+
+
+  const [theme, setTheme] = useState('light');
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className={`min-h-screen p-10 transition-all duration-500 ${theme === 'dark' ? 'bg-neutral-700 text-white' : 'bg-white text-neutral-700'}`} >
+
+      <div className="absolute right-5 top-1 underline"><Link href="/task2" >Navigate to Task 2</Link></div>
+      {/* Theme Toggle  */}
+      <div className="flex relative w-25 h-12.5 gap-3 mx-auto mb-10">
+        {theme === 'light' && <button className={`relative  transition-opacity duration-500`}><Image src="/images/sliders.png" alt="road" width={100} height={50}
+        /></button>}
+
+        {theme === 'dark' && <button className={`relative transition-opacity duration-500`}><Image src="/images/Sliders (1).png" alt="road" width={100} height={50}
+        /></button>}
+        <Image src="/images/svrec.svg" alt="road" width={52} height={38} className={`absolute top-2.25 z-10 transition duration-400 ease  ${theme === "dark" ? 'translate-x-11' : 'translate-x-0'}`} onClick={(prev) => setTheme(theme === 'dark' ? 'light' : 'dark')} />
+      </div>
+
+
+      {/* Car Animation */}
+      <div className="bg-white w-100 h-12 rounded-lg flex justify-between items-center text-white px-4 font-semibold relative overflow-hidden border border-gray-300 mx-auto mb-10">
+        <div className="absolute -left-1/2 w-100 h-full bg-[radial-gradient(circle_at_left,rgba(255,255,255,0.6),transparent_55%),radial-gradient(circle_at_right,rgba(255,255,255,0.6),transparent_55%),linear-gradient(90deg,#f2f2f2_0%,#bdbdbd_20%,#3a3a3a_50%,#bdbdbd_80%,#f2f2f2_100%)]  myanim"></div>
+        <div className="absolute bottom-0 -left-5 flex items-end z-10 myanim">
+          <Image
+            src="/images/Car.png"
+            alt="car"
+            width={35}
+            height={18}
+            className="relative mycar drop-shadow-md"
+          />
+
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <div className='z-1'>Design</div>
+        <div className='z-1'>Develop</div>
+        <div className='z-1'>Test</div>
+      </div>
+
+
+      {/* Gallery */}
+      <div className="flex h-[450px] w-full gap-3" onMouseLeave={() => setHovered(0)}>
+        {images.map((src, index) => (
+          <div
+            key={index}
+            onMouseEnter={() => setHovered(index)}
+            onMouseLeave={() => setHovered(null)}
+            style={{ flex: getFlex(index) }}
+            className="relative overflow-hidden rounded-2xl transition-all duration-500"
           >
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src={src}
+              alt="gallery"
+              fill
+              className="object-cover"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+          </div>
+        ))}
+      </div>
     </div>
-  );
+  )
 }
