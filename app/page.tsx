@@ -41,7 +41,7 @@ export default function Home() {
       <div className="absolute right-5 top-1 underline"><Link href="/task2" >Navigate to Task 2</Link></div>
       {/* Theme Toggle  */}
       <div className="flex relative w-25 h-12.5 gap-3 mx-auto mb-10">
-        {theme === 'light' && <button className={`relative  transition-opacity duration-500`}><Image src="/images/sliders.png" alt="road" width={100} height={50}
+        {theme === 'light' && <button className={`relative  transition-opacity duration-500`}><Image src="/images/Sliders.png" alt="road" width={100} height={50}
         /></button>}
 
         {theme === 'dark' && <button className={`relative transition-opacity duration-500`}><Image src="/images/Sliders (1).png" alt="road" width={100} height={50}
